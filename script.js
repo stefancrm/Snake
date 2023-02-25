@@ -142,48 +142,52 @@ function checkAppleColision() {
     }
 }
 
-document.body.addEventListener('keydown', keyDown)
-
-function keyDown(event) {
-    //up
-    if(event.keyCode == 38 || event.keyCode == 87 ) {
-        if(yVelocity == 1)
-            return;
-        yVelocity = -1;
-        xVelocity = 0;
+document.body.addEventListener('keydown', (e) => {
+    switch(e.key) {
+        // Up
+        case "ArrowUp" :
+        case "w" :
+            if(yVelocity == 1)
+                return;
+            yVelocity = -1;
+            xVelocity = 0;
+            break;
+        // Right
+        case "ArrowRight" :
+        case "d" :
+            if(xVelocity == -1)
+                return;
+            yVelocity = 0;
+            xVelocity = 1;
+            break;
+        // Down
+        case "ArrowDown" :
+        case "s" :
+            if(yVelocity == -1)
+                return;
+            yVelocity = 1;
+            xVelocity = 0;
+            break;
+        // Left
+        case "ArrowLeft" :
+        case "a" :
+            if(xVelocity == 1)
+                return;
+            yVelocity = 0;
+            xVelocity = -1;
+            break;
+        case "m" :
+            if(!playMusic){
+                playMusic = true;
+                audioLoop.start();
+                console.log(playMusic)
+            } else if(playMusic) {
+                playMusic = false;
+                audioLoop.stop();
+                console.log(playMusic)
+            }
+            break;
     }
-    //right
-    if(event.keyCode == 39 || event.keyCode == 68) {
-        if(xVelocity == -1)
-            return;
-        yVelocity = 0;
-        xVelocity = 1;
-    }
-    //down
-    if(event.keyCode == 40 ||  event.keyCode == 83) {
-        if(yVelocity == -1)
-            return;
-        yVelocity = 1;
-        xVelocity = 0;
-    }
-    //left
-    if(event.keyCode == 37 ||  event.keyCode == 65) {
-        if(xVelocity == 1)
-            return;
-        yVelocity = 0;
-        xVelocity = -1;
-    }
-    if(event.keyCode == 77) {
-        if(!playMusic){
-            playMusic = true;
-            audioLoop.start();
-            console.log(playMusic)
-        } else if(playMusic) {
-            playMusic = false;
-            audioLoop.stop();
-            console.log(playMusic)
-        }
-   }
-}
+})
 
 drawGame();
